@@ -6,7 +6,7 @@
 
 int main(void){
 	volatile int* hex5_hex0_bus = (int*) 0xFF200010; 
-//	volatile *int reg32_intface = AVALON_INTFACE_ADDR;
+//	volatile int* reg32_intface = AVALON_INTFACE_ADDR;
 
 	char buffer[25];
 	int number;
