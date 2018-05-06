@@ -43,7 +43,7 @@ module mysystem_mm_interconnect_0 (
 		output wire         Arm_A9_HPS_h2f_axi_master_rlast,                                       //                                                                .rlast
 		output wire         Arm_A9_HPS_h2f_axi_master_rvalid,                                      //                                                                .rvalid
 		input  wire         Arm_A9_HPS_h2f_axi_master_rready,                                      //                                                                .rready
-		input  wire         System_Clk_clk_clk,                                                    //                                                  System_Clk_clk.clk
+		input  wire         sys_sdram_pll_0_sys_clk_clk,                                           //                                         sys_sdram_pll_0_sys_clk.clk
 		input  wire         Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, // Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
 		input  wire         ram_reset1_reset_bridge_in_reset_reset,                                //                                ram_reset1_reset_bridge_in_reset.reset
 		output wire [11:0]  ram_s1_address,                                                        //                                                          ram_s1.address
@@ -207,7 +207,7 @@ module mysystem_mm_interconnect_0 (
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) ram_s1_translator (
-		.clk                    (System_Clk_clk_clk),                     //                      clk.clk
+		.clk                    (sys_sdram_pll_0_sys_clk_clk),            //                      clk.clk
 		.reset                  (ram_reset1_reset_bridge_in_reset_reset), //                    reset.reset
 		.uav_address            (ram_s1_agent_m0_address),                // avalon_universal_slave_0.address
 		.uav_burstcount         (ram_s1_agent_m0_burstcount),             //                         .burstcount
@@ -301,7 +301,7 @@ module mysystem_mm_interconnect_0 (
 		.ST_CHANNEL_W              (2),
 		.ID                        (0)
 	) arm_a9_hps_h2f_axi_master_agent (
-		.aclk                   (System_Clk_clk_clk),                                                     //              clk.clk
+		.aclk                   (sys_sdram_pll_0_sys_clk_clk),                                            //              clk.clk
 		.aresetn                (~Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), //        clk_reset.reset_n
 		.write_cp_valid         (arm_a9_hps_h2f_axi_master_agent_write_cp_valid),                         //         write_cp.valid
 		.write_cp_data          (arm_a9_hps_h2f_axi_master_agent_write_cp_data),                          //                 .data
@@ -411,7 +411,7 @@ module mysystem_mm_interconnect_0 (
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) ram_s1_agent (
-		.clk                     (System_Clk_clk_clk),                         //             clk.clk
+		.clk                     (sys_sdram_pll_0_sys_clk_clk),                //             clk.clk
 		.reset                   (ram_reset1_reset_bridge_in_reset_reset),     //       clk_reset.reset
 		.m0_address              (ram_s1_agent_m0_address),                    //              m0.address
 		.m0_burstcount           (ram_s1_agent_m0_burstcount),                 //                .burstcount
@@ -470,7 +470,7 @@ module mysystem_mm_interconnect_0 (
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
 	) ram_s1_agent_rsp_fifo (
-		.clk               (System_Clk_clk_clk),                      //       clk.clk
+		.clk               (sys_sdram_pll_0_sys_clk_clk),             //       clk.clk
 		.reset             (ram_reset1_reset_bridge_in_reset_reset),  // clk_reset.reset
 		.in_data           (ram_s1_agent_rf_source_data),             //        in.data
 		.in_valid          (ram_s1_agent_rf_source_valid),            //          .valid
@@ -511,7 +511,7 @@ module mysystem_mm_interconnect_0 (
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
 	) ram_s1_agent_rdata_fifo (
-		.clk               (System_Clk_clk_clk),                     //       clk.clk
+		.clk               (sys_sdram_pll_0_sys_clk_clk),            //       clk.clk
 		.reset             (ram_reset1_reset_bridge_in_reset_reset), // clk_reset.reset
 		.in_data           (ram_s1_agent_rdata_fifo_src_data),       //        in.data
 		.in_valid          (ram_s1_agent_rdata_fifo_src_valid),      //          .valid
@@ -544,7 +544,7 @@ module mysystem_mm_interconnect_0 (
 		.sink_data          (arm_a9_hps_h2f_axi_master_agent_write_cp_data),                         //          .data
 		.sink_startofpacket (arm_a9_hps_h2f_axi_master_agent_write_cp_startofpacket),                //          .startofpacket
 		.sink_endofpacket   (arm_a9_hps_h2f_axi_master_agent_write_cp_endofpacket),                  //          .endofpacket
-		.clk                (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset              (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready          (router_src_ready),                                                      //       src.ready
 		.src_valid          (router_src_valid),                                                      //          .valid
@@ -560,7 +560,7 @@ module mysystem_mm_interconnect_0 (
 		.sink_data          (arm_a9_hps_h2f_axi_master_agent_read_cp_data),                          //          .data
 		.sink_startofpacket (arm_a9_hps_h2f_axi_master_agent_read_cp_startofpacket),                 //          .startofpacket
 		.sink_endofpacket   (arm_a9_hps_h2f_axi_master_agent_read_cp_endofpacket),                   //          .endofpacket
-		.clk                (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset              (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready          (router_001_src_ready),                                                  //       src.ready
 		.src_valid          (router_001_src_valid),                                                  //          .valid
@@ -576,7 +576,7 @@ module mysystem_mm_interconnect_0 (
 		.sink_data          (ram_s1_agent_rp_data),                   //          .data
 		.sink_startofpacket (ram_s1_agent_rp_startofpacket),          //          .startofpacket
 		.sink_endofpacket   (ram_s1_agent_rp_endofpacket),            //          .endofpacket
-		.clk                (System_Clk_clk_clk),                     //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),            //       clk.clk
 		.reset              (ram_reset1_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready          (router_002_src_ready),                   //       src.ready
 		.src_valid          (router_002_src_valid),                   //          .valid
@@ -620,7 +620,7 @@ module mysystem_mm_interconnect_0 (
 		.BURSTWRAP_CONST_VALUE     (0),
 		.ADAPTER_VERSION           ("13.1")
 	) ram_s1_burst_adapter (
-		.clk                   (System_Clk_clk_clk),                         //       cr0.clk
+		.clk                   (sys_sdram_pll_0_sys_clk_clk),                //       cr0.clk
 		.reset                 (ram_reset1_reset_bridge_in_reset_reset),     // cr0_reset.reset
 		.sink0_valid           (ram_s1_cmd_width_adapter_src_valid),         //     sink0.valid
 		.sink0_data            (ram_s1_cmd_width_adapter_src_data),          //          .data
@@ -637,7 +637,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_cmd_demux cmd_demux (
-		.clk                (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset              (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.sink_ready         (router_src_ready),                                                      //      sink.ready
 		.sink_channel       (router_src_channel),                                                    //          .channel
@@ -654,7 +654,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_cmd_demux cmd_demux_001 (
-		.clk                (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset              (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.sink_ready         (router_001_src_ready),                                                  //      sink.ready
 		.sink_channel       (router_001_src_channel),                                                //          .channel
@@ -671,7 +671,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_cmd_mux cmd_mux (
-		.clk                 (System_Clk_clk_clk),                     //       clk.clk
+		.clk                 (sys_sdram_pll_0_sys_clk_clk),            //       clk.clk
 		.reset               (ram_reset1_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready           (cmd_mux_src_ready),                      //       src.ready
 		.src_valid           (cmd_mux_src_valid),                      //          .valid
@@ -694,7 +694,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_rsp_demux rsp_demux (
-		.clk                (System_Clk_clk_clk),                         //       clk.clk
+		.clk                (sys_sdram_pll_0_sys_clk_clk),                //       clk.clk
 		.reset              (ram_reset1_reset_bridge_in_reset_reset),     // clk_reset.reset
 		.sink_ready         (ram_s1_rsp_width_adapter_src_ready),         //      sink.ready
 		.sink_channel       (ram_s1_rsp_width_adapter_src_channel),       //          .channel
@@ -717,7 +717,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_rsp_mux rsp_mux (
-		.clk                 (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                 (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset               (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready           (rsp_mux_src_ready),                                                     //       src.ready
 		.src_valid           (rsp_mux_src_valid),                                                     //          .valid
@@ -734,7 +734,7 @@ module mysystem_mm_interconnect_0 (
 	);
 
 	mysystem_mm_interconnect_0_rsp_mux rsp_mux_001 (
-		.clk                 (System_Clk_clk_clk),                                                    //       clk.clk
+		.clk                 (sys_sdram_pll_0_sys_clk_clk),                                           //       clk.clk
 		.reset               (Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset), // clk_reset.reset
 		.src_ready           (rsp_mux_001_src_ready),                                                 //       src.ready
 		.src_valid           (rsp_mux_001_src_valid),                                                 //          .valid
@@ -799,7 +799,7 @@ module mysystem_mm_interconnect_0 (
 		.PACKING                       (1),
 		.ENABLE_ADDRESS_ALIGNMENT      (1)
 	) ram_s1_rsp_width_adapter (
-		.clk                  (System_Clk_clk_clk),                         //       clk.clk
+		.clk                  (sys_sdram_pll_0_sys_clk_clk),                //       clk.clk
 		.reset                (ram_reset1_reset_bridge_in_reset_reset),     // clk_reset.reset
 		.in_valid             (router_002_src_valid),                       //      sink.valid
 		.in_channel           (router_002_src_channel),                     //          .channel
@@ -865,7 +865,7 @@ module mysystem_mm_interconnect_0 (
 		.PACKING                       (0),
 		.ENABLE_ADDRESS_ALIGNMENT      (1)
 	) ram_s1_cmd_width_adapter (
-		.clk                  (System_Clk_clk_clk),                         //       clk.clk
+		.clk                  (sys_sdram_pll_0_sys_clk_clk),                //       clk.clk
 		.reset                (ram_reset1_reset_bridge_in_reset_reset),     // clk_reset.reset
 		.in_valid             (cmd_mux_src_valid),                          //      sink.valid
 		.in_channel           (cmd_mux_src_channel),                        //          .channel
@@ -900,7 +900,7 @@ module mysystem_mm_interconnect_0 (
 		.outUseReady     (1),
 		.outReadyLatency (0)
 	) avalon_st_adapter (
-		.in_clk_0_clk   (System_Clk_clk_clk),                     // in_clk_0.clk
+		.in_clk_0_clk   (sys_sdram_pll_0_sys_clk_clk),            // in_clk_0.clk
 		.in_rst_0_reset (ram_reset1_reset_bridge_in_reset_reset), // in_rst_0.reset
 		.in_0_data      (ram_s1_agent_rdata_fifo_out_data),       //     in_0.data
 		.in_0_valid     (ram_s1_agent_rdata_fifo_out_valid),      //         .valid

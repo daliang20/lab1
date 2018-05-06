@@ -17,55 +17,15 @@
          type = "int";
       }
    }
-   element HEX3_HEX0
+   element hex5_hex0
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "5";
          type = "int";
       }
    }
-   element HEX3_HEX0.s1
-   {
-      datum baseAddress
-      {
-         value = "32";
-         type = "String";
-      }
-   }
-   element HEX5_HEX4
-   {
-      datum _sortIndex
-      {
-         value = "7";
-         type = "int";
-      }
-   }
-   element HEX5_HEX4.s1
-   {
-      datum baseAddress
-      {
-         value = "48";
-         type = "String";
-      }
-   }
-   element System_Clk
-   {
-      datum _sortIndex
-      {
-         value = "0";
-         type = "int";
-      }
-   }
-   element led
-   {
-      datum _sortIndex
-      {
-         value = "4";
-         type = "int";
-      }
-   }
-   element led.s1
+   element hex5_hex0.s1
    {
       datum baseAddress
       {
@@ -77,7 +37,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "4";
          type = "int";
       }
    }
@@ -93,7 +53,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "0";
          type = "String";
       }
    }
@@ -113,20 +73,28 @@
          type = "String";
       }
    }
-   element switches
+   element reg32_avalon_interface_0
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
    }
-   element switches.s1
+   element reg32_avalon_interface_0.avalon_slave_0
    {
       datum baseAddress
       {
-         value = "0";
+         value = "40";
          type = "String";
+      }
+   }
+   element sys_sdram_pll_0
+   {
+      datum _sortIndex
+      {
+         value = "0";
+         type = "int";
       }
    }
    element system_console
@@ -141,7 +109,7 @@
    {
       datum baseAddress
       {
-         value = "80";
+         value = "32";
          type = "String";
       }
    }
@@ -166,36 +134,35 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface name="clk" internal="System_Clk.clk_in" type="clock" dir="end" />
  <interface
-   name="hex3_hex0"
-   internal="HEX3_HEX0.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="hex5_hex4"
-   internal="HEX5_HEX4.external_connection"
+   name="hex5_0bus"
+   internal="hex5_hex0.external_connection"
    type="conduit"
    dir="end" />
  <interface name="memory" internal="Arm_A9_HPS.memory" type="conduit" dir="end" />
  <interface
-   name="pushbuttons"
+   name="pushbutton"
    internal="pushbuttons.external_connection"
    type="conduit"
    dir="end" />
  <interface
-   name="reset"
-   internal="System_Clk.clk_in_reset"
+   name="sdram_clk"
+   internal="sys_sdram_pll_0.sdram_clk"
+   type="clock"
+   dir="start" />
+ <interface
+   name="system_ref_clk"
+   internal="sys_sdram_pll_0.ref_clk"
+   type="clock"
+   dir="end" />
+ <interface
+   name="system_ref_reset"
+   internal="sys_sdram_pll_0.ref_reset"
    type="reset"
    dir="end" />
  <interface
-   name="rled"
-   internal="led.external_connection"
-   type="conduit"
-   dir="end" />
- <interface
-   name="switches"
-   internal="switches.external_connection"
+   name="to_hex_to_led"
+   internal="reg32_avalon_interface_0.conduit_end"
    type="conduit"
    dir="end" />
  <module name="Arm_A9_HPS" kind="altera_hps" version="16.1" enabled="1">
@@ -728,7 +695,7 @@
   <parameter name="usb_mp_clk_div" value="0" />
   <parameter name="use_default_mpu_clk" value="true" />
  </module>
- <module name="HEX3_HEX0" kind="altera_avalon_pio" version="16.1" enabled="1">
+ <module name="hex5_hex0" kind="altera_avalon_pio" version="16.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -741,40 +708,6 @@
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="32" />
- </module>
- <module name="HEX5_HEX4" kind="altera_avalon_pio" version="16.1" enabled="1">
-  <parameter name="bitClearingEdgeCapReg" value="false" />
-  <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
-  <parameter name="direction" value="Output" />
-  <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="false" />
-  <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
-  <parameter name="simDoTestBenchWiring" value="false" />
-  <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="16" />
- </module>
- <module name="System_Clk" kind="clock_source" version="16.1" enabled="1">
-  <parameter name="clockFrequency" value="50000000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="0" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module name="led" kind="altera_avalon_pio" version="16.1" enabled="1">
-  <parameter name="bitClearingEdgeCapReg" value="false" />
-  <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
-  <parameter name="direction" value="Output" />
-  <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="false" />
-  <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
-  <parameter name="simDoTestBenchWiring" value="false" />
-  <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="10" />
  </module>
  <module
    name="pushbuttons"
@@ -826,19 +759,26 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
- <module name="switches" kind="altera_avalon_pio" version="16.1" enabled="1">
-  <parameter name="bitClearingEdgeCapReg" value="false" />
-  <parameter name="bitModifyingOutReg" value="false" />
-  <parameter name="captureEdge" value="false" />
-  <parameter name="clockRate" value="50000000" />
-  <parameter name="direction" value="Input" />
-  <parameter name="edgeType" value="RISING" />
-  <parameter name="generateIRQ" value="false" />
-  <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
-  <parameter name="simDoTestBenchWiring" value="true" />
-  <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="10" />
+ <module
+   name="reg32_avalon_interface_0"
+   kind="reg32_avalon_interface"
+   version="1.0"
+   enabled="1" />
+ <module
+   name="sys_sdram_pll_0"
+   kind="altera_up_avalon_sys_sdram_pll"
+   version="16.1"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="CIII_boards" value="DE0" />
+  <parameter name="CIV_boards" value="DE2-115" />
+  <parameter name="CV_boards" value="DE1-SoC" />
+  <parameter name="MAX10_boards" value="DE10-Lite" />
+  <parameter name="device_family" value="Cyclone V" />
+  <parameter name="gui_outclk" value="50.0" />
+  <parameter name="gui_refclk" value="50.0" />
+  <parameter name="other_boards" value="None" />
  </module>
  <module
    name="system_console"
@@ -863,6 +803,15 @@
    kind="avalon"
    version="16.1"
    start="Arm_A9_HPS.h2f_axi_master"
+   end="reg32_avalon_interface_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0028" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="Arm_A9_HPS.h2f_axi_master"
    end="ram.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -874,33 +823,6 @@
    start="Arm_A9_HPS.h2f_lw_axi_master"
    end="system_console.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="Arm_A9_HPS.h2f_lw_axi_master"
-   end="pushbuttons.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="Arm_A9_HPS.h2f_lw_axi_master"
-   end="HEX5_HEX4.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0030" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="16.1"
-   start="Arm_A9_HPS.h2f_lw_axi_master"
-   end="HEX3_HEX0.s1">
-  <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
@@ -908,7 +830,16 @@
    kind="avalon"
    version="16.1"
    start="Arm_A9_HPS.h2f_lw_axi_master"
-   end="led.s1">
+   end="reg32_avalon_interface_0.avalon_slave_0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0028" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="Arm_A9_HPS.h2f_lw_axi_master"
+   end="hex5_hex0.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
@@ -917,7 +848,7 @@
    kind="avalon"
    version="16.1"
    start="Arm_A9_HPS.h2f_lw_axi_master"
-   end="switches.s1">
+   end="pushbuttons.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
@@ -925,48 +856,43 @@
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
+   start="sys_sdram_pll_0.sys_clk"
    end="system_console.clk" />
- <connection kind="clock" version="16.1" start="System_Clk.clk" end="switches.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
-   end="HEX3_HEX0.clk" />
+   start="sys_sdram_pll_0.sys_clk"
+   end="hex5_hex0.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
-   end="HEX5_HEX4.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="System_Clk.clk"
+   start="sys_sdram_pll_0.sys_clk"
    end="pushbuttons.clk" />
- <connection kind="clock" version="16.1" start="System_Clk.clk" end="led.clk" />
- <connection kind="clock" version="16.1" start="System_Clk.clk" end="ram.clk1" />
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
+   start="sys_sdram_pll_0.sys_clk"
+   end="ram.clk1" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="sys_sdram_pll_0.sys_clk"
+   end="reg32_avalon_interface_0.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="sys_sdram_pll_0.sys_clk"
    end="Arm_A9_HPS.f2h_axi_clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
+   start="sys_sdram_pll_0.sys_clk"
    end="Arm_A9_HPS.h2f_axi_clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="System_Clk.clk"
+   start="sys_sdram_pll_0.sys_clk"
    end="Arm_A9_HPS.h2f_lw_axi_clock" />
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="Arm_A9_HPS.f2h_irq0"
-   end="pushbuttons.irq">
-  <parameter name="irqNumber" value="1" />
- </connection>
  <connection
    kind="interrupt"
    version="16.1"
@@ -975,74 +901,61 @@
   <parameter name="irqNumber" value="8" />
  </connection>
  <connection
+   kind="interrupt"
+   version="16.1"
+   start="Arm_A9_HPS.f2h_irq0"
+   end="pushbuttons.irq">
+  <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
    kind="reset"
    version="16.1"
-   start="System_Clk.clk_reset"
+   start="Arm_A9_HPS.h2f_reset"
    end="system_console.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="System_Clk.clk_reset"
-   end="led.reset" />
+   start="Arm_A9_HPS.h2f_reset"
+   end="hex5_hex0.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="System_Clk.clk_reset"
-   end="switches.reset" />
+   start="Arm_A9_HPS.h2f_reset"
+   end="reg32_avalon_interface_0.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="System_Clk.clk_reset"
-   end="HEX3_HEX0.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="System_Clk.clk_reset"
-   end="HEX5_HEX4.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="System_Clk.clk_reset"
+   start="Arm_A9_HPS.h2f_reset"
    end="pushbuttons.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="System_Clk.clk_reset"
+   start="Arm_A9_HPS.h2f_reset"
    end="ram.reset1" />
  <connection
    kind="reset"
    version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
+   start="sys_sdram_pll_0.reset_source"
    end="system_console.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
-   end="led.reset" />
+   start="sys_sdram_pll_0.reset_source"
+   end="hex5_hex0.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
-   end="switches.reset" />
+   start="sys_sdram_pll_0.reset_source"
+   end="reg32_avalon_interface_0.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
-   end="HEX3_HEX0.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
-   end="HEX5_HEX4.reset" />
- <connection
-   kind="reset"
-   version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
+   start="sys_sdram_pll_0.reset_source"
    end="pushbuttons.reset" />
  <connection
    kind="reset"
    version="16.1"
-   start="Arm_A9_HPS.h2f_reset"
+   start="sys_sdram_pll_0.reset_source"
    end="ram.reset1" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />

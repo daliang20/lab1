@@ -1,17 +1,26 @@
 #include <stdio.h>
+#include <string.h>
 
+#define HEX5_HEX0BUS 		((volatile) (int*) 0xFF200010)
+#define AVALON_INTFACE_ADDR ((volatile) (int*) 0xFF200028)
 
-int main(void)
-{
-    volatile int* led = (int*) 0xFF200010; // rLED addr 
-    volatile int* switchptr = (int*) 0xFF200000; // SW addr 
-    volatile int* hex3 = (int*) 0xFF200020; // 
-    int switch_value; 
+int main(void){
+	volatile int* hex5_hex0_bus = (int*) 0xFF200010; 
+//	volatile *int reg32_intface = AVALON_INTFACE_ADDR;
 
-    while(1){
-        switch_value = *(switchptr); 
-		*hex3 = switch_value;
-	//printf("%d\n", switch_value); 
-        *led = switch_value;    
-    }
+	char buffer[25];
+	int number;
+
+	while(1){
+		printf("Enter an integer or 'exit': ");
+		fgets(buffer, 25, stdin); // Get input from stdin
+		sscanf(buffer, "%d\n", &number);
+		if (!strcmp(buffer, "exit\n"))
+			break;
+
+		printf("You entered %x\n", number);
+		fflush(stdin);
+		*hex5_hex0_bus = number; // Try the hex bus
+	}
+	return 0;
 }
