@@ -1,5 +1,6 @@
 
 module mysystem (
+	hex5_0bus_export,
 	memory_mem_a,
 	memory_mem_ba,
 	memory_mem_ck,
@@ -17,12 +18,12 @@ module mysystem (
 	memory_mem_dm,
 	memory_oct_rzqin,
 	pushbutton_export,
+	sdram_clk_clk,
 	system_ref_clk_clk,
 	system_ref_reset_reset,
-	sdram_clk_clk,
-	to_hex_to_led_readdata,
-	hex5_0bus_export);	
+	to_hex_to_led_readdata);	
 
+	output	[31:0]	hex5_0bus_export;
 	output	[12:0]	memory_mem_a;
 	output	[2:0]	memory_mem_ba;
 	output		memory_mem_ck;
@@ -40,9 +41,8 @@ module mysystem (
 	output		memory_mem_dm;
 	input		memory_oct_rzqin;
 	input	[3:0]	pushbutton_export;
+	output		sdram_clk_clk;
 	input		system_ref_clk_clk;
 	input		system_ref_reset_reset;
-	output		sdram_clk_clk;
 	output	[31:0]	to_hex_to_led_readdata;
-	output	[31:0]	hex5_0bus_export;
 endmodule

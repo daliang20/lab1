@@ -5,8 +5,8 @@
 #define AVALON_INTFACE_ADDR ((volatile) (int*) 0xFF200028)
 
 int main(void){
-	volatile int* hex5_hex0_bus = (int*) 0xFF200010; 
-//	volatile int* reg32_intface = AVALON_INTFACE_ADDR;
+   //	volatile int* hex5_hex0_bus = (int*) 0xFF200010; 
+	volatile int* reg32_intface = (int*) 0xFF200028;
 
 	char buffer[25];
 	int number;
@@ -20,7 +20,7 @@ int main(void){
 
 		printf("You entered %x\n", number);
 		fflush(stdin);
-		*hex5_hex0_bus = number; // Try the hex bus
+		*reg32_intface = number; // Try the hex bus
 	}
 	return 0;
 }

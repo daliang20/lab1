@@ -1,5 +1,6 @@
 	component mysystem is
 		port (
+			hex5_0bus_export       : out   std_logic_vector(31 downto 0);                    -- export
 			memory_mem_a           : out   std_logic_vector(12 downto 0);                    -- mem_a
 			memory_mem_ba          : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			memory_mem_ck          : out   std_logic;                                        -- mem_ck
@@ -17,16 +18,16 @@
 			memory_mem_dm          : out   std_logic;                                        -- mem_dm
 			memory_oct_rzqin       : in    std_logic                     := 'X';             -- oct_rzqin
 			pushbutton_export      : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			sdram_clk_clk          : out   std_logic;                                        -- clk
 			system_ref_clk_clk     : in    std_logic                     := 'X';             -- clk
 			system_ref_reset_reset : in    std_logic                     := 'X';             -- reset
-			sdram_clk_clk          : out   std_logic;                                        -- clk
-			to_hex_to_led_readdata : out   std_logic_vector(31 downto 0);                    -- readdata
-			hex5_0bus_export       : out   std_logic_vector(31 downto 0)                     -- export
+			to_hex_to_led_readdata : out   std_logic_vector(31 downto 0)                     -- readdata
 		);
 	end component mysystem;
 
 	u0 : component mysystem
 		port map (
+			hex5_0bus_export       => CONNECTED_TO_hex5_0bus_export,       --        hex5_0bus.export
 			memory_mem_a           => CONNECTED_TO_memory_mem_a,           --           memory.mem_a
 			memory_mem_ba          => CONNECTED_TO_memory_mem_ba,          --                 .mem_ba
 			memory_mem_ck          => CONNECTED_TO_memory_mem_ck,          --                 .mem_ck
@@ -44,10 +45,9 @@
 			memory_mem_dm          => CONNECTED_TO_memory_mem_dm,          --                 .mem_dm
 			memory_oct_rzqin       => CONNECTED_TO_memory_oct_rzqin,       --                 .oct_rzqin
 			pushbutton_export      => CONNECTED_TO_pushbutton_export,      --       pushbutton.export
+			sdram_clk_clk          => CONNECTED_TO_sdram_clk_clk,          --        sdram_clk.clk
 			system_ref_clk_clk     => CONNECTED_TO_system_ref_clk_clk,     --   system_ref_clk.clk
 			system_ref_reset_reset => CONNECTED_TO_system_ref_reset_reset, -- system_ref_reset.reset
-			sdram_clk_clk          => CONNECTED_TO_sdram_clk_clk,          --        sdram_clk.clk
-			to_hex_to_led_readdata => CONNECTED_TO_to_hex_to_led_readdata, --    to_hex_to_led.readdata
-			hex5_0bus_export       => CONNECTED_TO_hex5_0bus_export        --        hex5_0bus.export
+			to_hex_to_led_readdata => CONNECTED_TO_to_hex_to_led_readdata  --    to_hex_to_led.readdata
 		);
 

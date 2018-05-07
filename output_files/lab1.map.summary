@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Sun May 06 10:40:28 2018
-Quartus Prime Version : 16.1.0 Build 196 10/24/2016 SJ Lite Edition
+Analysis & Synthesis Status : Successful - Mon May  7 14:23:32 2018
+Quartus II 64-Bit Version : 15.0.0 Build 145 04/22/2015 SJ Full Version
 Revision Name : lab1
 Top-level Entity Name : lab1
 Family : Cyclone V
 Logic utilization (in ALMs) : N/A
-Total registers : 1641
+Total registers : 1640
 Total pins : 140
 Total virtual pins : 0
 Total block memory bits : 132,096

@@ -4,18 +4,18 @@ editor if you plan to continue editing the block that represents it in
 the Block Editor! File corruption is VERY likely to occur.
 */
 /*
-Copyright (C) 2016  Intel Corporation. All rights reserved.
-Your use of Intel Corporation's design tools, logic functions 
+Copyright (C) 1991-2015 Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
-to the terms and conditions of the Intel Program License 
-Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel MegaCore Function License Agreement, or other 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus II License Agreement,
+the Altera MegaCore Function License Agreement, or other 
 applicable license agreement, including, without limitation, 
 that your use is for the sole purpose of programming logic 
-devices manufactured by Intel and sold by Intel or its 
+devices manufactured by Altera and sold by Altera or its 
 authorized distributors.  Please refer to the applicable 
 agreement for further details.
 */
@@ -32,25 +32,32 @@ agreement for further details.
 		(line (pt 432 312)(pt 272 312)(line_width 1))
 	)
 	(port
-		(pt 0 72)
-		(input)
-		(text "pushbutton_export[3..0]" (rect 0 0 93 12)(font "Arial" (font_size 8)))
-		(text "pushbutton_export[3..0]" (rect 4 61 142 72)(font "Arial" (font_size 8)))
-		(line (pt 0 72)(pt 160 72)(line_width 3))
-	)
-	(port
 		(pt 0 112)
 		(input)
-		(text "system_ref_clk_clk" (rect 0 0 81 12)(font "Arial" (font_size 8)))
-		(text "system_ref_clk_clk" (rect 4 101 112 112)(font "Arial" (font_size 8)))
-		(line (pt 0 112)(pt 160 112)(line_width 1))
+		(text "pushbutton_export[3..0]" (rect 0 0 93 12)(font "Arial" (font_size 8)))
+		(text "pushbutton_export[3..0]" (rect 4 101 142 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 160 112)(line_width 3))
 	)
 	(port
 		(pt 0 152)
 		(input)
-		(text "system_ref_reset_reset" (rect 0 0 100 12)(font "Arial" (font_size 8)))
-		(text "system_ref_reset_reset" (rect 4 141 136 152)(font "Arial" (font_size 8)))
+		(text "system_ref_clk_clk" (rect 0 0 81 12)(font "Arial" (font_size 8)))
+		(text "system_ref_clk_clk" (rect 4 141 112 152)(font "Arial" (font_size 8)))
 		(line (pt 0 152)(pt 160 152)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "system_ref_reset_reset" (rect 0 0 100 12)(font "Arial" (font_size 8)))
+		(text "system_ref_reset_reset" (rect 4 181 136 192)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 160 192)(line_width 1))
+	)
+	(port
+		(pt 0 72)
+		(output)
+		(text "hex5_0bus_export[31..0]" (rect 0 0 97 12)(font "Arial" (font_size 8)))
+		(text "hex5_0bus_export[31..0]" (rect 4 61 142 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 160 72)(line_width 3))
 	)
 	(port
 		(pt 432 72)
@@ -144,17 +151,10 @@ agreement for further details.
 		(line (pt 432 352)(pt 272 352)(line_width 1))
 	)
 	(port
-		(pt 0 192)
-		(output)
-		(text "to_hex_to_led_readdata[31..0]" (rect 0 0 120 12)(font "Arial" (font_size 8)))
-		(text "to_hex_to_led_readdata[31..0]" (rect 4 181 178 192)(font "Arial" (font_size 8)))
-		(line (pt 0 192)(pt 160 192)(line_width 3))
-	)
-	(port
 		(pt 0 232)
 		(output)
-		(text "hex5_0bus_export[31..0]" (rect 0 0 97 12)(font "Arial" (font_size 8)))
-		(text "hex5_0bus_export[31..0]" (rect 4 221 142 232)(font "Arial" (font_size 8)))
+		(text "to_hex_to_led_readdata[31..0]" (rect 0 0 120 12)(font "Arial" (font_size 8)))
+		(text "to_hex_to_led_readdata[31..0]" (rect 4 221 178 232)(font "Arial" (font_size 8)))
 		(line (pt 0 232)(pt 160 232)(line_width 3))
 	)
 	(port
@@ -179,6 +179,8 @@ agreement for further details.
 		(line (pt 432 264)(pt 272 264)(line_width 1))
 	)
 	(drawing
+		(text "hex5_0bus" (rect 98 43 250 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 165 67 366 144)(font "Arial" (color 0 0 0)))
 		(text "memory" (rect 273 43 582 99)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "mem_a" (rect 237 67 504 144)(font "Arial" (color 0 0 0)))
 		(text "mem_ba" (rect 232 83 500 176)(font "Arial" (color 0 0 0)))
@@ -196,33 +198,31 @@ agreement for further details.
 		(text "mem_odt" (rect 229 275 500 560)(font "Arial" (color 0 0 0)))
 		(text "mem_dm" (rect 229 291 494 592)(font "Arial" (color 0 0 0)))
 		(text "oct_rzqin" (rect 230 307 514 624)(font "Arial" (color 0 0 0)))
-		(text "pushbutton" (rect 97 43 254 99)(font "Arial" (color 128 0 0)(font_size 9)))
-		(text "export" (rect 165 67 366 144)(font "Arial" (color 0 0 0)))
-		(text "system_ref_clk" (rect 70 83 224 179)(font "Arial" (color 128 0 0)(font_size 9)))
-		(text "clk" (rect 165 107 348 224)(font "Arial" (color 0 0 0)))
-		(text "system_ref_reset" (rect 56 123 208 259)(font "Arial" (color 128 0 0)(font_size 9)))
-		(text "reset" (rect 165 147 360 304)(font "Arial" (color 0 0 0)))
+		(text "pushbutton" (rect 97 83 254 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 165 107 366 224)(font "Arial" (color 0 0 0)))
 		(text "sdram_clk" (rect 273 323 600 659)(font "Arial" (color 128 0 0)(font_size 9)))
 		(text "clk" (rect 257 347 532 704)(font "Arial" (color 0 0 0)))
-		(text "to_hex_to_led" (rect 78 163 234 339)(font "Arial" (color 128 0 0)(font_size 9)))
-		(text "readdata" (rect 165 187 378 384)(font "Arial" (color 0 0 0)))
-		(text "hex5_0bus" (rect 98 203 250 419)(font "Arial" (color 128 0 0)(font_size 9)))
-		(text "export" (rect 165 227 366 464)(font "Arial" (color 0 0 0)))
-		(text " system " (rect 397 368 842 746)(font "Arial" ))
+		(text "system_ref_clk" (rect 70 123 224 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 165 147 348 304)(font "Arial" (color 0 0 0)))
+		(text "system_ref_reset" (rect 56 163 208 339)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset" (rect 165 187 360 384)(font "Arial" (color 0 0 0)))
+		(text "to_hex_to_led" (rect 78 203 234 419)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "readdata" (rect 165 227 378 464)(font "Arial" (color 0 0 0)))
+		(text " mysystem " (rect 383 368 826 746)(font "Arial" ))
 		(line (pt 160 32)(pt 272 32)(line_width 1))
 		(line (pt 272 32)(pt 272 368)(line_width 1))
 		(line (pt 160 368)(pt 272 368)(line_width 1))
 		(line (pt 160 32)(pt 160 368)(line_width 1))
-		(line (pt 271 52)(pt 271 316)(line_width 1))
-		(line (pt 270 52)(pt 270 316)(line_width 1))
 		(line (pt 161 52)(pt 161 76)(line_width 1))
 		(line (pt 162 52)(pt 162 76)(line_width 1))
+		(line (pt 271 52)(pt 271 316)(line_width 1))
+		(line (pt 270 52)(pt 270 316)(line_width 1))
 		(line (pt 161 92)(pt 161 116)(line_width 1))
 		(line (pt 162 92)(pt 162 116)(line_width 1))
-		(line (pt 161 132)(pt 161 156)(line_width 1))
-		(line (pt 162 132)(pt 162 156)(line_width 1))
 		(line (pt 271 332)(pt 271 356)(line_width 1))
 		(line (pt 270 332)(pt 270 356)(line_width 1))
+		(line (pt 161 132)(pt 161 156)(line_width 1))
+		(line (pt 162 132)(pt 162 156)(line_width 1))
 		(line (pt 161 172)(pt 161 196)(line_width 1))
 		(line (pt 162 172)(pt 162 196)(line_width 1))
 		(line (pt 161 212)(pt 161 236)(line_width 1))

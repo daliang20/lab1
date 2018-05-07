@@ -1,4 +1,5 @@
 	mysystem u0 (
+		.hex5_0bus_export       (<connected-to-hex5_0bus_export>),       //        hex5_0bus.export
 		.memory_mem_a           (<connected-to-memory_mem_a>),           //           memory.mem_a
 		.memory_mem_ba          (<connected-to-memory_mem_ba>),          //                 .mem_ba
 		.memory_mem_ck          (<connected-to-memory_mem_ck>),          //                 .mem_ck
@@ -16,10 +17,9 @@
 		.memory_mem_dm          (<connected-to-memory_mem_dm>),          //                 .mem_dm
 		.memory_oct_rzqin       (<connected-to-memory_oct_rzqin>),       //                 .oct_rzqin
 		.pushbutton_export      (<connected-to-pushbutton_export>),      //       pushbutton.export
+		.sdram_clk_clk          (<connected-to-sdram_clk_clk>),          //        sdram_clk.clk
 		.system_ref_clk_clk     (<connected-to-system_ref_clk_clk>),     //   system_ref_clk.clk
 		.system_ref_reset_reset (<connected-to-system_ref_reset_reset>), // system_ref_reset.reset
-		.sdram_clk_clk          (<connected-to-sdram_clk_clk>),          //        sdram_clk.clk
-		.to_hex_to_led_readdata (<connected-to-to_hex_to_led_readdata>), //    to_hex_to_led.readdata
-		.hex5_0bus_export       (<connected-to-hex5_0bus_export>)        //        hex5_0bus.export
+		.to_hex_to_led_readdata (<connected-to-to_hex_to_led_readdata>)  //    to_hex_to_led.readdata
 	);
 
