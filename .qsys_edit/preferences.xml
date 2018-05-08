@@ -8,7 +8,8 @@
    <inputclock preferredWidth="258" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project/My Own IP Cores,Project" />
+ <library
+   expandedCategories="Library/Basic Functions/On Chip Memory,Project,Library,Library/Basic Functions,Library/Memory Interfaces and Controllers" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VERILOG" />
 </preferences>

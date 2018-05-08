@@ -1,5 +1,5 @@
 Assembler report for lab1
-Mon May  7 14:25:09 2018
+Mon May  7 23:52:20 2018
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Full Version
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Mon May  7 14:25:09 2018 ;
+; Assembler Status      ; Successful - Mon May  7 23:52:20 2018 ;
 ; Revision Name         ; lab1                                  ;
 ; Top-level Entity Name ; lab1                                  ;
 ; Family                ; Cyclone V                             ;
@@ -79,8 +79,8 @@ agreement for further details.
 ; Option         ; Setting           ;
 +----------------+-------------------+
 ; Device         ; 5CSEMA5F31C6      ;
-; JTAG usercode  ; 0x01376B06        ;
-; Checksum       ; 0x01376B06        ;
+; JTAG usercode  ; 0x0158431A        ;
+; Checksum       ; 0x0158431A        ;
 +----------------+-------------------+
 
 
@@ -90,16 +90,14 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 15.0.0 Build 145 04/22/2015 SJ Full Version
-    Info: Processing started: Mon May  7 14:24:56 2018
+    Info: Processing started: Mon May  7 23:52:07 2018
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off lab1 -c lab1
 Info (115030): Assembler is generating device programming files
-Warning (11713): The configuration of the Hard Processor Subsystem (HPS) within this design has changed.
-The Preloader software that initializes the HPS requires an update.
-Using hps_isw_handoff/mysystem_Arm_A9_HPS/, run the Preloader Support Package Generator to update your Preloader software
-Info: Quartus II 64-Bit Assembler was successful. 0 errors, 1 warning
-    Info: Peak virtual memory: 1132 megabytes
-    Info: Processing ended: Mon May  7 14:25:09 2018
-    Info: Elapsed time: 00:00:13
+Info (11878): Hard Processor Subsystem configuration has not changed and a Preloader software update is not required
+Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 1137 megabytes
+    Info: Processing ended: Mon May  7 23:52:21 2018
+    Info: Elapsed time: 00:00:14
     Info: Total CPU time (on all processors): 00:00:11
 
 

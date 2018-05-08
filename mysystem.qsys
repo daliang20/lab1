@@ -41,6 +41,22 @@
          type = "String";
       }
    }
+   element new_sdram_controller_0
+   {
+      datum _sortIndex
+      {
+         value = "7";
+         type = "int";
+      }
+   }
+   element new_sdram_controller_0.s1
+   {
+      datum baseAddress
+      {
+         value = "0";
+         type = "String";
+      }
+   }
    element pushbuttons
    {
       datum _sortIndex
@@ -77,7 +93,7 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "67108864";
          type = "String";
       }
    }
@@ -158,6 +174,11 @@
    internal="sys_sdram_pll_0.sdram_clk"
    type="clock"
    dir="start" />
+ <interface
+   name="sdram_wire"
+   internal="new_sdram_controller_0.wire"
+   type="conduit"
+   dir="end" />
  <interface
    name="system_ref_clk"
    internal="sys_sdram_pll_0.ref_clk"
@@ -714,6 +735,35 @@
   <parameter name="width" value="32" />
  </module>
  <module
+   name="new_sdram_controller_0"
+   kind="altera_avalon_new_sdram_controller"
+   version="15.0"
+   enabled="1">
+  <parameter name="TAC" value="5.5" />
+  <parameter name="TMRD" value="3" />
+  <parameter name="TRCD" value="20.0" />
+  <parameter name="TRFC" value="70.0" />
+  <parameter name="TRP" value="20.0" />
+  <parameter name="TWR" value="14.0" />
+  <parameter name="casLatency" value="3" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="columnWidth" value="10" />
+  <parameter name="componentName">$${FILENAME}_new_sdram_controller_0</parameter>
+  <parameter name="dataWidth" value="16" />
+  <parameter name="generateSimulationModel" value="false" />
+  <parameter name="initNOPDelay" value="0.0" />
+  <parameter name="initRefreshCommands" value="2" />
+  <parameter name="masteredTristateBridgeSlave" value="0" />
+  <parameter name="model">single_Micron_MT48LC4M32B2_7_chip</parameter>
+  <parameter name="numberOfBanks" value="4" />
+  <parameter name="numberOfChipSelects" value="1" />
+  <parameter name="pinsSharedViaTriState" value="false" />
+  <parameter name="powerUpDelay" value="100.0" />
+  <parameter name="refreshPeriod" value="15.625" />
+  <parameter name="registerDataIn" value="true" />
+  <parameter name="rowWidth" value="13" />
+ </module>
+ <module
    name="pushbuttons"
    kind="altera_avalon_pio"
    version="15.0"
@@ -805,6 +855,15 @@
    start="Arm_A9_HPS.h2f_axi_master"
    end="ram.s1">
   <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x04000000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="15.0"
+   start="Arm_A9_HPS.h2f_axi_master"
+   end="new_sdram_controller_0.s1">
+  <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
@@ -859,6 +918,11 @@
    version="15.0"
    start="sys_sdram_pll_0.sys_clk"
    end="pushbuttons.clk" />
+ <connection
+   kind="clock"
+   version="15.0"
+   start="sys_sdram_pll_0.sys_clk"
+   end="new_sdram_controller_0.clk" />
  <connection
    kind="clock"
    version="15.0"
@@ -922,6 +986,11 @@
    kind="reset"
    version="15.0"
    start="Arm_A9_HPS.h2f_reset"
+   end="new_sdram_controller_0.reset" />
+ <connection
+   kind="reset"
+   version="15.0"
+   start="Arm_A9_HPS.h2f_reset"
    end="ram.reset1" />
  <connection
    kind="reset"
@@ -943,6 +1012,11 @@
    version="15.0"
    start="sys_sdram_pll_0.reset_source"
    end="reg32_avalon_interface_0.reset" />
+ <connection
+   kind="reset"
+   version="15.0"
+   start="sys_sdram_pll_0.reset_source"
+   end="new_sdram_controller_0.reset" />
  <connection
    kind="reset"
    version="15.0"
