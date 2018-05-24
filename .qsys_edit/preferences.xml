@@ -3,13 +3,12 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="159" />
+   <connections preferredWidth="175" />
    <irq preferredWidth="47" />
    <inputclock preferredWidth="258" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/Basic Functions/On Chip Memory,Project,Library,Library/Basic Functions,Library/Memory Interfaces and Controllers" />
- <window width="1936" height="1056" x="-8" y="-8" />
+ <library expandedCategories="Library,Project" />
+ <window width="960" height="1018" x="960" y="28" />
  <hdlexample language="VERILOG" />
 </preferences>

@@ -4,40 +4,64 @@
 
 `timescale 1 ps / 1 ps
 module mysystem (
-		output wire [31:0] hex5_0bus_export,       //        hex5_0bus.export
-		output wire [12:0] memory_mem_a,           //           memory.mem_a
-		output wire [2:0]  memory_mem_ba,          //                 .mem_ba
-		output wire        memory_mem_ck,          //                 .mem_ck
-		output wire        memory_mem_ck_n,        //                 .mem_ck_n
-		output wire        memory_mem_cke,         //                 .mem_cke
-		output wire        memory_mem_cs_n,        //                 .mem_cs_n
-		output wire        memory_mem_ras_n,       //                 .mem_ras_n
-		output wire        memory_mem_cas_n,       //                 .mem_cas_n
-		output wire        memory_mem_we_n,        //                 .mem_we_n
-		output wire        memory_mem_reset_n,     //                 .mem_reset_n
-		inout  wire [7:0]  memory_mem_dq,          //                 .mem_dq
-		inout  wire        memory_mem_dqs,         //                 .mem_dqs
-		inout  wire        memory_mem_dqs_n,       //                 .mem_dqs_n
-		output wire        memory_mem_odt,         //                 .mem_odt
-		output wire        memory_mem_dm,          //                 .mem_dm
-		input  wire        memory_oct_rzqin,       //                 .oct_rzqin
-		input  wire [3:0]  pushbutton_export,      //       pushbutton.export
-		output wire        sdram_clk_clk,          //        sdram_clk.clk
-		output wire [12:0] sdram_wire_addr,        //       sdram_wire.addr
-		output wire [1:0]  sdram_wire_ba,          //                 .ba
-		output wire        sdram_wire_cas_n,       //                 .cas_n
-		output wire        sdram_wire_cke,         //                 .cke
-		output wire        sdram_wire_cs_n,        //                 .cs_n
-		inout  wire [15:0] sdram_wire_dq,          //                 .dq
-		output wire [1:0]  sdram_wire_dqm,         //                 .dqm
-		output wire        sdram_wire_ras_n,       //                 .ras_n
-		output wire        sdram_wire_we_n,        //                 .we_n
-		input  wire        system_ref_clk_clk,     //   system_ref_clk.clk
-		input  wire        system_ref_reset_reset, // system_ref_reset.reset
-		output wire [31:0] to_hex_to_led_readdata  //    to_hex_to_led.readdata
+		input  wire        clock_bridge_0_in_clk_clk,          //    clock_bridge_0_in_clk.clk
+		input  wire [31:0] fifo_fpga_to_hps_in_writedata,      //      fifo_fpga_to_hps_in.writedata
+		input  wire        fifo_fpga_to_hps_in_write,          //                         .write
+		output wire        fifo_fpga_to_hps_in_waitrequest,    //                         .waitrequest
+		input  wire [2:0]  fifo_fpga_to_hps_in_csr_address,    //  fifo_fpga_to_hps_in_csr.address
+		input  wire        fifo_fpga_to_hps_in_csr_read,       //                         .read
+		input  wire [31:0] fifo_fpga_to_hps_in_csr_writedata,  //                         .writedata
+		input  wire        fifo_fpga_to_hps_in_csr_write,      //                         .write
+		output wire [31:0] fifo_fpga_to_hps_in_csr_readdata,   //                         .readdata
+		output wire [31:0] fifo_hps_to_fpga_out_readdata,      //     fifo_hps_to_fpga_out.readdata
+		input  wire        fifo_hps_to_fpga_out_read,          //                         .read
+		output wire        fifo_hps_to_fpga_out_waitrequest,   //                         .waitrequest
+		input  wire [2:0]  fifo_hps_to_fpga_out_csr_address,   // fifo_hps_to_fpga_out_csr.address
+		input  wire        fifo_hps_to_fpga_out_csr_read,      //                         .read
+		input  wire [31:0] fifo_hps_to_fpga_out_csr_writedata, //                         .writedata
+		input  wire        fifo_hps_to_fpga_out_csr_write,     //                         .write
+		output wire [31:0] fifo_hps_to_fpga_out_csr_readdata,  //                         .readdata
+		output wire [31:0] hex5_0bus_export,                   //                hex5_0bus.export
+		output wire [12:0] memory_mem_a,                       //                   memory.mem_a
+		output wire [2:0]  memory_mem_ba,                      //                         .mem_ba
+		output wire        memory_mem_ck,                      //                         .mem_ck
+		output wire        memory_mem_ck_n,                    //                         .mem_ck_n
+		output wire        memory_mem_cke,                     //                         .mem_cke
+		output wire        memory_mem_cs_n,                    //                         .mem_cs_n
+		output wire        memory_mem_ras_n,                   //                         .mem_ras_n
+		output wire        memory_mem_cas_n,                   //                         .mem_cas_n
+		output wire        memory_mem_we_n,                    //                         .mem_we_n
+		output wire        memory_mem_reset_n,                 //                         .mem_reset_n
+		inout  wire [7:0]  memory_mem_dq,                      //                         .mem_dq
+		inout  wire        memory_mem_dqs,                     //                         .mem_dqs
+		inout  wire        memory_mem_dqs_n,                   //                         .mem_dqs_n
+		output wire        memory_mem_odt,                     //                         .mem_odt
+		output wire        memory_mem_dm,                      //                         .mem_dm
+		input  wire        memory_oct_rzqin,                   //                         .oct_rzqin
+		input  wire [3:0]  pushbutton_export,                  //               pushbutton.export
+		input  wire [11:0] ram_s2_address,                     //                   ram_s2.address
+		input  wire        ram_s2_chipselect,                  //                         .chipselect
+		input  wire        ram_s2_clken,                       //                         .clken
+		input  wire        ram_s2_write,                       //                         .write
+		output wire [31:0] ram_s2_readdata,                    //                         .readdata
+		input  wire [31:0] ram_s2_writedata,                   //                         .writedata
+		input  wire [3:0]  ram_s2_byteenable,                  //                         .byteenable
+		output wire        sdram_clk_clk,                      //                sdram_clk.clk
+		output wire [12:0] sdram_wire_addr,                    //               sdram_wire.addr
+		output wire [1:0]  sdram_wire_ba,                      //                         .ba
+		output wire        sdram_wire_cas_n,                   //                         .cas_n
+		output wire        sdram_wire_cke,                     //                         .cke
+		output wire        sdram_wire_cs_n,                    //                         .cs_n
+		inout  wire [15:0] sdram_wire_dq,                      //                         .dq
+		output wire [1:0]  sdram_wire_dqm,                     //                         .dqm
+		output wire        sdram_wire_ras_n,                   //                         .ras_n
+		output wire        sdram_wire_we_n,                    //                         .we_n
+		input  wire        system_ref_clk_clk,                 //           system_ref_clk.clk
+		input  wire        system_ref_reset_reset,             //         system_ref_reset.reset
+		output wire [31:0] to_hex_to_led_readdata              //            to_hex_to_led.readdata
 	);
 
-	wire          sys_sdram_pll_0_sys_clk_clk;                                          // sys_sdram_pll_0:sys_clk_clk -> [Arm_A9_HPS:f2h_axi_clk, Arm_A9_HPS:h2f_axi_clk, Arm_A9_HPS:h2f_lw_axi_clk, hex5_hex0:clk, mm_interconnect_0:sys_sdram_pll_0_sys_clk_clk, mm_interconnect_1:sys_sdram_pll_0_sys_clk_clk, new_sdram_controller_0:clk, pushbuttons:clk, ram:clk, reg32_avalon_interface_0:clk, rst_controller:clk, rst_controller_001:clk, system_console:clk]
+	wire          sys_sdram_pll_0_sys_clk_clk;                                          // sys_sdram_pll_0:sys_clk_clk -> [Arm_A9_HPS:f2h_axi_clk, Arm_A9_HPS:h2f_axi_clk, Arm_A9_HPS:h2f_lw_axi_clk, fifo_fpga_to_hps:rdclock, fifo_hps_to_fpga:wrclock, hex5_hex0:clk, mm_interconnect_0:sys_sdram_pll_0_sys_clk_clk, mm_interconnect_1:sys_sdram_pll_0_sys_clk_clk, new_sdram_controller_0:clk, pushbuttons:clk, ram:clk, reg32_avalon_interface_0:clk, rst_controller_001:clk, rst_controller_002:clk, system_console:clk]
 	wire    [1:0] arm_a9_hps_h2f_axi_master_awburst;                                    // Arm_A9_HPS:h2f_AWBURST -> mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_awburst
 	wire    [3:0] arm_a9_hps_h2f_axi_master_arlen;                                      // Arm_A9_HPS:h2f_ARLEN -> mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_arlen
 	wire   [15:0] arm_a9_hps_h2f_axi_master_wstrb;                                      // Arm_A9_HPS:h2f_WSTRB -> mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_wstrb
@@ -74,6 +98,12 @@ module mysystem (
 	wire    [2:0] arm_a9_hps_h2f_axi_master_awsize;                                     // Arm_A9_HPS:h2f_AWSIZE -> mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_awsize
 	wire          arm_a9_hps_h2f_axi_master_awvalid;                                    // Arm_A9_HPS:h2f_AWVALID -> mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_awvalid
 	wire          arm_a9_hps_h2f_axi_master_rvalid;                                     // mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_rvalid -> Arm_A9_HPS:h2f_RVALID
+	wire          mm_interconnect_0_fifo_hps_to_fpga_in_waitrequest;                    // fifo_hps_to_fpga:avalonmm_write_slave_waitrequest -> mm_interconnect_0:fifo_hps_to_fpga_in_waitrequest
+	wire          mm_interconnect_0_fifo_hps_to_fpga_in_write;                          // mm_interconnect_0:fifo_hps_to_fpga_in_write -> fifo_hps_to_fpga:avalonmm_write_slave_write
+	wire   [31:0] mm_interconnect_0_fifo_hps_to_fpga_in_writedata;                      // mm_interconnect_0:fifo_hps_to_fpga_in_writedata -> fifo_hps_to_fpga:avalonmm_write_slave_writedata
+	wire   [31:0] mm_interconnect_0_fifo_fpga_to_hps_out_readdata;                      // fifo_fpga_to_hps:avalonmm_read_slave_readdata -> mm_interconnect_0:fifo_fpga_to_hps_out_readdata
+	wire          mm_interconnect_0_fifo_fpga_to_hps_out_waitrequest;                   // fifo_fpga_to_hps:avalonmm_read_slave_waitrequest -> mm_interconnect_0:fifo_fpga_to_hps_out_waitrequest
+	wire          mm_interconnect_0_fifo_fpga_to_hps_out_read;                          // mm_interconnect_0:fifo_fpga_to_hps_out_read -> fifo_fpga_to_hps:avalonmm_read_slave_read
 	wire          mm_interconnect_0_ram_s1_chipselect;                                  // mm_interconnect_0:ram_s1_chipselect -> ram:chipselect
 	wire   [31:0] mm_interconnect_0_ram_s1_readdata;                                    // ram:readdata -> mm_interconnect_0:ram_s1_readdata
 	wire   [11:0] mm_interconnect_0_ram_s1_address;                                     // mm_interconnect_0:ram_s1_address -> ram:address
@@ -139,6 +169,16 @@ module mysystem (
 	wire    [3:0] mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_byteenable; // mm_interconnect_1:reg32_avalon_interface_0_avalon_slave_0_byteenable -> reg32_avalon_interface_0:byteenable
 	wire          mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_write;      // mm_interconnect_1:reg32_avalon_interface_0_avalon_slave_0_write -> reg32_avalon_interface_0:write
 	wire   [31:0] mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_writedata;  // mm_interconnect_1:reg32_avalon_interface_0_avalon_slave_0_writedata -> reg32_avalon_interface_0:writedata
+	wire   [31:0] mm_interconnect_1_fifo_hps_to_fpga_in_csr_readdata;                   // fifo_hps_to_fpga:wrclk_control_slave_readdata -> mm_interconnect_1:fifo_hps_to_fpga_in_csr_readdata
+	wire    [2:0] mm_interconnect_1_fifo_hps_to_fpga_in_csr_address;                    // mm_interconnect_1:fifo_hps_to_fpga_in_csr_address -> fifo_hps_to_fpga:wrclk_control_slave_address
+	wire          mm_interconnect_1_fifo_hps_to_fpga_in_csr_read;                       // mm_interconnect_1:fifo_hps_to_fpga_in_csr_read -> fifo_hps_to_fpga:wrclk_control_slave_read
+	wire          mm_interconnect_1_fifo_hps_to_fpga_in_csr_write;                      // mm_interconnect_1:fifo_hps_to_fpga_in_csr_write -> fifo_hps_to_fpga:wrclk_control_slave_write
+	wire   [31:0] mm_interconnect_1_fifo_hps_to_fpga_in_csr_writedata;                  // mm_interconnect_1:fifo_hps_to_fpga_in_csr_writedata -> fifo_hps_to_fpga:wrclk_control_slave_writedata
+	wire   [31:0] mm_interconnect_1_fifo_fpga_to_hps_out_csr_readdata;                  // fifo_fpga_to_hps:rdclk_control_slave_readdata -> mm_interconnect_1:fifo_fpga_to_hps_out_csr_readdata
+	wire    [2:0] mm_interconnect_1_fifo_fpga_to_hps_out_csr_address;                   // mm_interconnect_1:fifo_fpga_to_hps_out_csr_address -> fifo_fpga_to_hps:rdclk_control_slave_address
+	wire          mm_interconnect_1_fifo_fpga_to_hps_out_csr_read;                      // mm_interconnect_1:fifo_fpga_to_hps_out_csr_read -> fifo_fpga_to_hps:rdclk_control_slave_read
+	wire          mm_interconnect_1_fifo_fpga_to_hps_out_csr_write;                     // mm_interconnect_1:fifo_fpga_to_hps_out_csr_write -> fifo_fpga_to_hps:rdclk_control_slave_write
+	wire   [31:0] mm_interconnect_1_fifo_fpga_to_hps_out_csr_writedata;                 // mm_interconnect_1:fifo_fpga_to_hps_out_csr_writedata -> fifo_fpga_to_hps:rdclk_control_slave_writedata
 	wire          mm_interconnect_1_hex5_hex0_s1_chipselect;                            // mm_interconnect_1:hex5_hex0_s1_chipselect -> hex5_hex0:chipselect
 	wire   [31:0] mm_interconnect_1_hex5_hex0_s1_readdata;                              // hex5_hex0:readdata -> mm_interconnect_1:hex5_hex0_s1_readdata
 	wire    [1:0] mm_interconnect_1_hex5_hex0_s1_address;                               // mm_interconnect_1:hex5_hex0_s1_address -> hex5_hex0:address
@@ -153,11 +193,13 @@ module mysystem (
 	wire          irq_mapper_receiver1_irq;                                             // pushbuttons:irq -> irq_mapper:receiver1_irq
 	wire   [31:0] arm_a9_hps_f2h_irq0_irq;                                              // irq_mapper:sender_irq -> Arm_A9_HPS:f2h_irq_p0
 	wire   [31:0] arm_a9_hps_f2h_irq1_irq;                                              // irq_mapper_001:sender_irq -> Arm_A9_HPS:f2h_irq_p1
-	wire          rst_controller_reset_out_reset;                                       // rst_controller:reset_out -> [hex5_hex0:reset_n, mm_interconnect_0:ram_reset1_reset_bridge_in_reset_reset, mm_interconnect_1:system_console_reset_reset_bridge_in_reset_reset, new_sdram_controller_0:reset_n, pushbuttons:reset_n, ram:reset, reg32_avalon_interface_0:reset_n, rst_translator:in_reset, system_console:rst_n]
-	wire          rst_controller_reset_out_reset_req;                                   // rst_controller:reset_req -> [ram:reset_req, rst_translator:reset_req_in]
-	wire          arm_a9_hps_h2f_reset_reset;                                           // Arm_A9_HPS:h2f_rst_n -> [rst_controller:reset_in0, rst_controller_001:reset_in0]
-	wire          sys_sdram_pll_0_reset_source_reset;                                   // sys_sdram_pll_0:reset_source_reset -> rst_controller:reset_in1
-	wire          rst_controller_001_reset_out_reset;                                   // rst_controller_001:reset_out -> [mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset]
+	wire          rst_controller_reset_out_reset;                                       // rst_controller:reset_out -> [fifo_fpga_to_hps:wrreset_n, fifo_hps_to_fpga:rdreset_n, ram:reset2]
+	wire          rst_controller_reset_out_reset_req;                                   // rst_controller:reset_req -> [ram:reset_req2, rst_translator:reset_req_in]
+	wire          arm_a9_hps_h2f_reset_reset;                                           // Arm_A9_HPS:h2f_rst_n -> [rst_controller:reset_in0, rst_controller_001:reset_in0, rst_controller_002:reset_in0]
+	wire          sys_sdram_pll_0_reset_source_reset;                                   // sys_sdram_pll_0:reset_source_reset -> [rst_controller:reset_in1, rst_controller_001:reset_in1]
+	wire          rst_controller_001_reset_out_reset;                                   // rst_controller_001:reset_out -> [fifo_fpga_to_hps:rdreset_n, fifo_hps_to_fpga:wrreset_n, hex5_hex0:reset_n, mm_interconnect_0:fifo_hps_to_fpga_reset_in_reset_bridge_in_reset_reset, mm_interconnect_1:system_console_reset_reset_bridge_in_reset_reset, new_sdram_controller_0:reset_n, pushbuttons:reset_n, ram:reset, reg32_avalon_interface_0:reset_n, rst_translator_001:in_reset, system_console:rst_n]
+	wire          rst_controller_001_reset_out_reset_req;                               // rst_controller_001:reset_req -> [ram:reset_req, rst_translator_001:reset_req_in]
+	wire          rst_controller_002_reset_out_reset;                                   // rst_controller_002:reset_out -> [mm_interconnect_0:Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset, mm_interconnect_1:Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset]
 
 	mysystem_Arm_A9_HPS #(
 		.F2S_Width (2),
@@ -297,9 +339,55 @@ module mysystem (
 		.f2h_irq_p1     (arm_a9_hps_f2h_irq1_irq)               //          f2h_irq1.irq
 	);
 
+	mysystem_fifo_fpga_to_hps fifo_fpga_to_hps (
+		.wrclock                          (clock_bridge_0_in_clk_clk),                            //    clk_in.clk
+		.wrreset_n                        (~rst_controller_reset_out_reset),                      //  reset_in.reset_n
+		.rdclock                          (sys_sdram_pll_0_sys_clk_clk),                          //   clk_out.clk
+		.rdreset_n                        (~rst_controller_001_reset_out_reset),                  // reset_out.reset_n
+		.avalonmm_write_slave_writedata   (fifo_fpga_to_hps_in_writedata),                        //        in.writedata
+		.avalonmm_write_slave_write       (fifo_fpga_to_hps_in_write),                            //          .write
+		.avalonmm_write_slave_waitrequest (fifo_fpga_to_hps_in_waitrequest),                      //          .waitrequest
+		.avalonmm_read_slave_readdata     (mm_interconnect_0_fifo_fpga_to_hps_out_readdata),      //       out.readdata
+		.avalonmm_read_slave_read         (mm_interconnect_0_fifo_fpga_to_hps_out_read),          //          .read
+		.avalonmm_read_slave_waitrequest  (mm_interconnect_0_fifo_fpga_to_hps_out_waitrequest),   //          .waitrequest
+		.rdclk_control_slave_address      (mm_interconnect_1_fifo_fpga_to_hps_out_csr_address),   //   out_csr.address
+		.rdclk_control_slave_read         (mm_interconnect_1_fifo_fpga_to_hps_out_csr_read),      //          .read
+		.rdclk_control_slave_writedata    (mm_interconnect_1_fifo_fpga_to_hps_out_csr_writedata), //          .writedata
+		.rdclk_control_slave_write        (mm_interconnect_1_fifo_fpga_to_hps_out_csr_write),     //          .write
+		.rdclk_control_slave_readdata     (mm_interconnect_1_fifo_fpga_to_hps_out_csr_readdata),  //          .readdata
+		.wrclk_control_slave_address      (fifo_fpga_to_hps_in_csr_address),                      //    in_csr.address
+		.wrclk_control_slave_read         (fifo_fpga_to_hps_in_csr_read),                         //          .read
+		.wrclk_control_slave_writedata    (fifo_fpga_to_hps_in_csr_writedata),                    //          .writedata
+		.wrclk_control_slave_write        (fifo_fpga_to_hps_in_csr_write),                        //          .write
+		.wrclk_control_slave_readdata     (fifo_fpga_to_hps_in_csr_readdata)                      //          .readdata
+	);
+
+	mysystem_fifo_fpga_to_hps fifo_hps_to_fpga (
+		.wrclock                          (sys_sdram_pll_0_sys_clk_clk),                         //    clk_in.clk
+		.wrreset_n                        (~rst_controller_001_reset_out_reset),                 //  reset_in.reset_n
+		.rdclock                          (clock_bridge_0_in_clk_clk),                           //   clk_out.clk
+		.rdreset_n                        (~rst_controller_reset_out_reset),                     // reset_out.reset_n
+		.avalonmm_write_slave_writedata   (mm_interconnect_0_fifo_hps_to_fpga_in_writedata),     //        in.writedata
+		.avalonmm_write_slave_write       (mm_interconnect_0_fifo_hps_to_fpga_in_write),         //          .write
+		.avalonmm_write_slave_waitrequest (mm_interconnect_0_fifo_hps_to_fpga_in_waitrequest),   //          .waitrequest
+		.avalonmm_read_slave_readdata     (fifo_hps_to_fpga_out_readdata),                       //       out.readdata
+		.avalonmm_read_slave_read         (fifo_hps_to_fpga_out_read),                           //          .read
+		.avalonmm_read_slave_waitrequest  (fifo_hps_to_fpga_out_waitrequest),                    //          .waitrequest
+		.rdclk_control_slave_address      (fifo_hps_to_fpga_out_csr_address),                    //   out_csr.address
+		.rdclk_control_slave_read         (fifo_hps_to_fpga_out_csr_read),                       //          .read
+		.rdclk_control_slave_writedata    (fifo_hps_to_fpga_out_csr_writedata),                  //          .writedata
+		.rdclk_control_slave_write        (fifo_hps_to_fpga_out_csr_write),                      //          .write
+		.rdclk_control_slave_readdata     (fifo_hps_to_fpga_out_csr_readdata),                   //          .readdata
+		.wrclk_control_slave_address      (mm_interconnect_1_fifo_hps_to_fpga_in_csr_address),   //    in_csr.address
+		.wrclk_control_slave_read         (mm_interconnect_1_fifo_hps_to_fpga_in_csr_read),      //          .read
+		.wrclk_control_slave_writedata    (mm_interconnect_1_fifo_hps_to_fpga_in_csr_writedata), //          .writedata
+		.wrclk_control_slave_write        (mm_interconnect_1_fifo_hps_to_fpga_in_csr_write),     //          .write
+		.wrclk_control_slave_readdata     (mm_interconnect_1_fifo_hps_to_fpga_in_csr_readdata)   //          .readdata
+	);
+
 	mysystem_hex5_hex0 hex5_hex0 (
 		.clk        (sys_sdram_pll_0_sys_clk_clk),               //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),           //               reset.reset_n
+		.reset_n    (~rst_controller_001_reset_out_reset),       //               reset.reset_n
 		.address    (mm_interconnect_1_hex5_hex0_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_hex5_hex0_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_hex5_hex0_s1_writedata),  //                    .writedata
@@ -310,7 +398,7 @@ module mysystem (
 
 	mysystem_new_sdram_controller_0 new_sdram_controller_0 (
 		.clk            (sys_sdram_pll_0_sys_clk_clk),                               //   clk.clk
-		.reset_n        (~rst_controller_reset_out_reset),                           // reset.reset_n
+		.reset_n        (~rst_controller_001_reset_out_reset),                       // reset.reset_n
 		.az_addr        (mm_interconnect_0_new_sdram_controller_0_s1_address),       //    s1.address
 		.az_be_n        (~mm_interconnect_0_new_sdram_controller_0_s1_byteenable),   //      .byteenable_n
 		.az_cs          (mm_interconnect_0_new_sdram_controller_0_s1_chipselect),    //      .chipselect
@@ -333,7 +421,7 @@ module mysystem (
 
 	mysystem_pushbuttons pushbuttons (
 		.clk        (sys_sdram_pll_0_sys_clk_clk),                 //                 clk.clk
-		.reset_n    (~rst_controller_reset_out_reset),             //               reset.reset_n
+		.reset_n    (~rst_controller_001_reset_out_reset),         //               reset.reset_n
 		.address    (mm_interconnect_1_pushbuttons_s1_address),    //                  s1.address
 		.write_n    (~mm_interconnect_1_pushbuttons_s1_write),     //                    .write_n
 		.writedata  (mm_interconnect_1_pushbuttons_s1_writedata),  //                    .writedata
@@ -344,21 +432,31 @@ module mysystem (
 	);
 
 	mysystem_ram ram (
-		.clk        (sys_sdram_pll_0_sys_clk_clk),         //   clk1.clk
-		.address    (mm_interconnect_0_ram_s1_address),    //     s1.address
-		.clken      (mm_interconnect_0_ram_s1_clken),      //       .clken
-		.chipselect (mm_interconnect_0_ram_s1_chipselect), //       .chipselect
-		.write      (mm_interconnect_0_ram_s1_write),      //       .write
-		.readdata   (mm_interconnect_0_ram_s1_readdata),   //       .readdata
-		.writedata  (mm_interconnect_0_ram_s1_writedata),  //       .writedata
-		.byteenable (mm_interconnect_0_ram_s1_byteenable), //       .byteenable
-		.reset      (rst_controller_reset_out_reset),      // reset1.reset
-		.reset_req  (rst_controller_reset_out_reset_req)   //       .reset_req
+		.clk         (sys_sdram_pll_0_sys_clk_clk),            //   clk1.clk
+		.address     (mm_interconnect_0_ram_s1_address),       //     s1.address
+		.clken       (mm_interconnect_0_ram_s1_clken),         //       .clken
+		.chipselect  (mm_interconnect_0_ram_s1_chipselect),    //       .chipselect
+		.write       (mm_interconnect_0_ram_s1_write),         //       .write
+		.readdata    (mm_interconnect_0_ram_s1_readdata),      //       .readdata
+		.writedata   (mm_interconnect_0_ram_s1_writedata),     //       .writedata
+		.byteenable  (mm_interconnect_0_ram_s1_byteenable),    //       .byteenable
+		.reset       (rst_controller_001_reset_out_reset),     // reset1.reset
+		.reset_req   (rst_controller_001_reset_out_reset_req), //       .reset_req
+		.address2    (ram_s2_address),                         //     s2.address
+		.chipselect2 (ram_s2_chipselect),                      //       .chipselect
+		.clken2      (ram_s2_clken),                           //       .clken
+		.write2      (ram_s2_write),                           //       .write
+		.readdata2   (ram_s2_readdata),                        //       .readdata
+		.writedata2  (ram_s2_writedata),                       //       .writedata
+		.byteenable2 (ram_s2_byteenable),                      //       .byteenable
+		.clk2        (clock_bridge_0_in_clk_clk),              //   clk2.clk
+		.reset2      (rst_controller_reset_out_reset),         // reset2.reset
+		.reset_req2  (rst_controller_reset_out_reset_req)      //       .reset_req
 	);
 
 	reg32_avalon_interface reg32_avalon_interface_0 (
 		.clk        (sys_sdram_pll_0_sys_clk_clk),                                          //          clock.clk
-		.reset_n    (~rst_controller_reset_out_reset),                                      //          reset.reset_n
+		.reset_n    (~rst_controller_001_reset_out_reset),                                  //          reset.reset_n
 		.write      (mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_write),      // avalon_slave_0.write
 		.writedata  (mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_writedata),  //               .writedata
 		.read       (mm_interconnect_1_reg32_avalon_interface_0_avalon_slave_0_read),       //               .read
@@ -378,7 +476,7 @@ module mysystem (
 
 	mysystem_system_console system_console (
 		.clk            (sys_sdram_pll_0_sys_clk_clk),                                    //               clk.clk
-		.rst_n          (~rst_controller_reset_out_reset),                                //             reset.reset_n
+		.rst_n          (~rst_controller_001_reset_out_reset),                            //             reset.reset_n
 		.av_chipselect  (mm_interconnect_1_system_console_avalon_jtag_slave_chipselect),  // avalon_jtag_slave.chipselect
 		.av_address     (mm_interconnect_1_system_console_avalon_jtag_slave_address),     //                  .address
 		.av_read_n      (~mm_interconnect_1_system_console_avalon_jtag_slave_read),       //                  .read_n
@@ -427,8 +525,14 @@ module mysystem (
 		.Arm_A9_HPS_h2f_axi_master_rvalid                                      (arm_a9_hps_h2f_axi_master_rvalid),                          //                                                                .rvalid
 		.Arm_A9_HPS_h2f_axi_master_rready                                      (arm_a9_hps_h2f_axi_master_rready),                          //                                                                .rready
 		.sys_sdram_pll_0_sys_clk_clk                                           (sys_sdram_pll_0_sys_clk_clk),                               //                                         sys_sdram_pll_0_sys_clk.clk
-		.Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_001_reset_out_reset),                        // Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
-		.ram_reset1_reset_bridge_in_reset_reset                                (rst_controller_reset_out_reset),                            //                                ram_reset1_reset_bridge_in_reset.reset
+		.Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),                        // Arm_A9_HPS_h2f_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
+		.fifo_hps_to_fpga_reset_in_reset_bridge_in_reset_reset                 (rst_controller_001_reset_out_reset),                        //                 fifo_hps_to_fpga_reset_in_reset_bridge_in_reset.reset
+		.fifo_fpga_to_hps_out_read                                             (mm_interconnect_0_fifo_fpga_to_hps_out_read),               //                                            fifo_fpga_to_hps_out.read
+		.fifo_fpga_to_hps_out_readdata                                         (mm_interconnect_0_fifo_fpga_to_hps_out_readdata),           //                                                                .readdata
+		.fifo_fpga_to_hps_out_waitrequest                                      (mm_interconnect_0_fifo_fpga_to_hps_out_waitrequest),        //                                                                .waitrequest
+		.fifo_hps_to_fpga_in_write                                             (mm_interconnect_0_fifo_hps_to_fpga_in_write),               //                                             fifo_hps_to_fpga_in.write
+		.fifo_hps_to_fpga_in_writedata                                         (mm_interconnect_0_fifo_hps_to_fpga_in_writedata),           //                                                                .writedata
+		.fifo_hps_to_fpga_in_waitrequest                                       (mm_interconnect_0_fifo_hps_to_fpga_in_waitrequest),         //                                                                .waitrequest
 		.new_sdram_controller_0_s1_address                                     (mm_interconnect_0_new_sdram_controller_0_s1_address),       //                                       new_sdram_controller_0_s1.address
 		.new_sdram_controller_0_s1_write                                       (mm_interconnect_0_new_sdram_controller_0_s1_write),         //                                                                .write
 		.new_sdram_controller_0_s1_read                                        (mm_interconnect_0_new_sdram_controller_0_s1_read),          //                                                                .read
@@ -485,8 +589,18 @@ module mysystem (
 		.Arm_A9_HPS_h2f_lw_axi_master_rvalid                                      (arm_a9_hps_h2f_lw_axi_master_rvalid),                                  //                                                                   .rvalid
 		.Arm_A9_HPS_h2f_lw_axi_master_rready                                      (arm_a9_hps_h2f_lw_axi_master_rready),                                  //                                                                   .rready
 		.sys_sdram_pll_0_sys_clk_clk                                              (sys_sdram_pll_0_sys_clk_clk),                                          //                                            sys_sdram_pll_0_sys_clk.clk
-		.Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_001_reset_out_reset),                                   // Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
-		.system_console_reset_reset_bridge_in_reset_reset                         (rst_controller_reset_out_reset),                                       //                         system_console_reset_reset_bridge_in_reset.reset
+		.Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset (rst_controller_002_reset_out_reset),                                   // Arm_A9_HPS_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
+		.system_console_reset_reset_bridge_in_reset_reset                         (rst_controller_001_reset_out_reset),                                   //                         system_console_reset_reset_bridge_in_reset.reset
+		.fifo_fpga_to_hps_out_csr_address                                         (mm_interconnect_1_fifo_fpga_to_hps_out_csr_address),                   //                                           fifo_fpga_to_hps_out_csr.address
+		.fifo_fpga_to_hps_out_csr_write                                           (mm_interconnect_1_fifo_fpga_to_hps_out_csr_write),                     //                                                                   .write
+		.fifo_fpga_to_hps_out_csr_read                                            (mm_interconnect_1_fifo_fpga_to_hps_out_csr_read),                      //                                                                   .read
+		.fifo_fpga_to_hps_out_csr_readdata                                        (mm_interconnect_1_fifo_fpga_to_hps_out_csr_readdata),                  //                                                                   .readdata
+		.fifo_fpga_to_hps_out_csr_writedata                                       (mm_interconnect_1_fifo_fpga_to_hps_out_csr_writedata),                 //                                                                   .writedata
+		.fifo_hps_to_fpga_in_csr_address                                          (mm_interconnect_1_fifo_hps_to_fpga_in_csr_address),                    //                                            fifo_hps_to_fpga_in_csr.address
+		.fifo_hps_to_fpga_in_csr_write                                            (mm_interconnect_1_fifo_hps_to_fpga_in_csr_write),                      //                                                                   .write
+		.fifo_hps_to_fpga_in_csr_read                                             (mm_interconnect_1_fifo_hps_to_fpga_in_csr_read),                       //                                                                   .read
+		.fifo_hps_to_fpga_in_csr_readdata                                         (mm_interconnect_1_fifo_hps_to_fpga_in_csr_readdata),                   //                                                                   .readdata
+		.fifo_hps_to_fpga_in_csr_writedata                                        (mm_interconnect_1_fifo_hps_to_fpga_in_csr_writedata),                  //                                                                   .writedata
 		.hex5_hex0_s1_address                                                     (mm_interconnect_1_hex5_hex0_s1_address),                               //                                                       hex5_hex0_s1.address
 		.hex5_hex0_s1_write                                                       (mm_interconnect_1_hex5_hex0_s1_write),                                 //                                                                   .write
 		.hex5_hex0_s1_readdata                                                    (mm_interconnect_1_hex5_hex0_s1_readdata),                              //                                                                   .readdata
@@ -554,7 +668,7 @@ module mysystem (
 	) rst_controller (
 		.reset_in0      (~arm_a9_hps_h2f_reset_reset),        // reset_in0.reset
 		.reset_in1      (sys_sdram_pll_0_reset_source_reset), // reset_in1.reset
-		.clk            (sys_sdram_pll_0_sys_clk_clk),        //       clk.clk
+		.clk            (clock_bridge_0_in_clk_clk),          //       clk.clk
 		.reset_out      (rst_controller_reset_out_reset),     // reset_out.reset
 		.reset_req      (rst_controller_reset_out_reset_req), //          .reset_req
 		.reset_req_in0  (1'b0),                               // (terminated)
@@ -590,6 +704,69 @@ module mysystem (
 	);
 
 	altera_reset_controller #(
+		.NUM_RESET_INPUTS          (2),
+		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
+		.SYNC_DEPTH                (2),
+		.RESET_REQUEST_PRESENT     (1),
+		.RESET_REQ_WAIT_TIME       (1),
+		.MIN_RST_ASSERTION_TIME    (3),
+		.RESET_REQ_EARLY_DSRT_TIME (1),
+		.USE_RESET_REQUEST_IN0     (0),
+		.USE_RESET_REQUEST_IN1     (0),
+		.USE_RESET_REQUEST_IN2     (0),
+		.USE_RESET_REQUEST_IN3     (0),
+		.USE_RESET_REQUEST_IN4     (0),
+		.USE_RESET_REQUEST_IN5     (0),
+		.USE_RESET_REQUEST_IN6     (0),
+		.USE_RESET_REQUEST_IN7     (0),
+		.USE_RESET_REQUEST_IN8     (0),
+		.USE_RESET_REQUEST_IN9     (0),
+		.USE_RESET_REQUEST_IN10    (0),
+		.USE_RESET_REQUEST_IN11    (0),
+		.USE_RESET_REQUEST_IN12    (0),
+		.USE_RESET_REQUEST_IN13    (0),
+		.USE_RESET_REQUEST_IN14    (0),
+		.USE_RESET_REQUEST_IN15    (0),
+		.ADAPT_RESET_REQUEST       (0)
+	) rst_controller_001 (
+		.reset_in0      (~arm_a9_hps_h2f_reset_reset),            // reset_in0.reset
+		.reset_in1      (sys_sdram_pll_0_reset_source_reset),     // reset_in1.reset
+		.clk            (sys_sdram_pll_0_sys_clk_clk),            //       clk.clk
+		.reset_out      (rst_controller_001_reset_out_reset),     // reset_out.reset
+		.reset_req      (rst_controller_001_reset_out_reset_req), //          .reset_req
+		.reset_req_in0  (1'b0),                                   // (terminated)
+		.reset_req_in1  (1'b0),                                   // (terminated)
+		.reset_in2      (1'b0),                                   // (terminated)
+		.reset_req_in2  (1'b0),                                   // (terminated)
+		.reset_in3      (1'b0),                                   // (terminated)
+		.reset_req_in3  (1'b0),                                   // (terminated)
+		.reset_in4      (1'b0),                                   // (terminated)
+		.reset_req_in4  (1'b0),                                   // (terminated)
+		.reset_in5      (1'b0),                                   // (terminated)
+		.reset_req_in5  (1'b0),                                   // (terminated)
+		.reset_in6      (1'b0),                                   // (terminated)
+		.reset_req_in6  (1'b0),                                   // (terminated)
+		.reset_in7      (1'b0),                                   // (terminated)
+		.reset_req_in7  (1'b0),                                   // (terminated)
+		.reset_in8      (1'b0),                                   // (terminated)
+		.reset_req_in8  (1'b0),                                   // (terminated)
+		.reset_in9      (1'b0),                                   // (terminated)
+		.reset_req_in9  (1'b0),                                   // (terminated)
+		.reset_in10     (1'b0),                                   // (terminated)
+		.reset_req_in10 (1'b0),                                   // (terminated)
+		.reset_in11     (1'b0),                                   // (terminated)
+		.reset_req_in11 (1'b0),                                   // (terminated)
+		.reset_in12     (1'b0),                                   // (terminated)
+		.reset_req_in12 (1'b0),                                   // (terminated)
+		.reset_in13     (1'b0),                                   // (terminated)
+		.reset_req_in13 (1'b0),                                   // (terminated)
+		.reset_in14     (1'b0),                                   // (terminated)
+		.reset_req_in14 (1'b0),                                   // (terminated)
+		.reset_in15     (1'b0),                                   // (terminated)
+		.reset_req_in15 (1'b0)                                    // (terminated)
+	);
+
+	altera_reset_controller #(
 		.NUM_RESET_INPUTS          (1),
 		.OUTPUT_RESET_SYNC_EDGES   ("deassert"),
 		.SYNC_DEPTH                (2),
@@ -614,10 +791,10 @@ module mysystem (
 		.USE_RESET_REQUEST_IN14    (0),
 		.USE_RESET_REQUEST_IN15    (0),
 		.ADAPT_RESET_REQUEST       (0)
-	) rst_controller_001 (
+	) rst_controller_002 (
 		.reset_in0      (~arm_a9_hps_h2f_reset_reset),        // reset_in0.reset
 		.clk            (sys_sdram_pll_0_sys_clk_clk),        //       clk.clk
-		.reset_out      (rst_controller_001_reset_out_reset), // reset_out.reset
+		.reset_out      (rst_controller_002_reset_out_reset), // reset_out.reset
 		.reset_req      (),                                   // (terminated)
 		.reset_req_in0  (1'b0),                               // (terminated)
 		.reset_in1      (1'b0),                               // (terminated)
